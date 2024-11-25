@@ -3,6 +3,7 @@ pipenv install python-dotenv
 pipenv install langchain-community
 pipenv install langchain-openai
 pipenv install langchainhub
+pipenv install langchain-ollama
 """
 
 import os
