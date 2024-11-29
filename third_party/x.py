@@ -12,3 +12,4 @@ def scrape_user_tweets(username:str, num_tweets:int = 5, mock = True) -> str:
 if __name__ == "__main__":
     tweets = scrape_user_tweets(username="")
     print(tweets)
+    print("XD!")
