@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.tools import Tool
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain import hub
-from tools.toolss import get_profile_irl_tavily
+from tools.toolss import get_profile_url_tavily
 
 def lookup(name:str) -> str:
     llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
@@ -19,7 +19,7 @@ def lookup(name:str) -> str:
 
     linkedin_url_search_tool = Tool(
         name="Crawl Google for LinkedIn profile page",
-        func=get_profile_irl_tavily,
+        func=get_profile_url_tavily,
         description="Useful when you need to get the LinedIn profile page URL.",
     )
 
@@ -42,5 +42,5 @@ def lookup(name:str) -> str:
 
 if __name__ == "__main__":
     load_dotenv()
-    linkedin_url = lookup(name="Alessandra Espinoza Holguin")
+    linkedin_url = lookup(name="Donald Trump")
     print(f"URL found: {linkedin_url}")

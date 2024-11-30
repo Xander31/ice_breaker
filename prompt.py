@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from dotenv import dotenv_values
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
@@ -15,10 +16,16 @@ Ha sido criticado por hacer declaraciones poco científicas y controvertidas. En
 """
 
 if __name__ == "__main__":
-    load_dotenv()
+    #load_dotenv()
+
+    env_key = {
+        **dotenv_values(".env.secret")
+    }
+
     print("Hello Langchain...")
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"))
+    llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini", openai_api_key=env_key["OPENAI_API_KEY"])
+    #llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini", openai_api_key=os.getenv("OPENAI_API_KEY"))
     #llm = ChatOllama(temperature=0, model="llama3")
 
     summary_template = """
