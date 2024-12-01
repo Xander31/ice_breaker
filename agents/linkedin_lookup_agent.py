@@ -42,5 +42,5 @@ def lookup(name:str) -> str:
 
 if __name__ == "__main__":
     load_dotenv()
-    linkedin_url = lookup(name="Donald Trump")
+    linkedin_url = lookup(name="Sundar Pichai")
     print(f"URL found: {linkedin_url}")

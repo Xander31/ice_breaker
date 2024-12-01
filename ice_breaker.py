@@ -7,10 +7,11 @@ from third_party.linkedin import scrape_linkedin_profile
 from third_party.x import scrape_user_tweets
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from agents.x_lookup_agent import lookup_x_username as x_lookup_agent
-from output_parsers import summary_parser
+from output_parsers import summary_parser, Summary
+from typing import Tuple
 
 
-def ice_breaker_with(name:str):
+def ice_breaker_with(name:str) -> Tuple[Summary, str]:
     linkedin_url_profile = linkedin_lookup_agent(name=name)
     linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_url_profile, mock=True)
 
@@ -35,15 +36,14 @@ def ice_breaker_with(name:str):
 
     chain = summary_prompt_template | llm | summary_parser
 
-    res = chain.invoke(input={"information": linkedin_data, "x_posts": x_posts})
+    res:Summary = chain.invoke(input={"information": linkedin_data, "x_posts": x_posts})
 
-    print(res)
+    return res, linkedin_data.get("profile_pic_url")
 
 if __name__ == "__main__":
     load_dotenv()
 
     print("Ice Breaker Enter")
 
-    ice_breaker_with(name="Donald Trump")
-
+    ice_breaker_with(name="Sundar Pichai")
 

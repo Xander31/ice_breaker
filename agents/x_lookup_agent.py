@@ -14,7 +14,7 @@ def lookup_x_username (name:str) -> str:
 
     template = """
     Given the name {name_of_person}, I want you to find the link of his/her X (previously know as Twitter) profile page, and extract from it his/her username.
-    Your final answer must only contain the person's username, a unique username.
+    Your final answer must ONLY contain the extracted person's username, a unique username.
     """
 
     prompt_template = PromptTemplate(input_variables=["name_of_person"], template= template)
@@ -44,5 +44,5 @@ def lookup_x_username (name:str) -> str:
 
 if __name__ == "__main__":
     load_dotenv()
-    x_username = lookup_x_username(name="Donald Trump")
+    x_username = lookup_x_username(name="Sundar Pichai")
     print(f"X username found: {x_username}")
