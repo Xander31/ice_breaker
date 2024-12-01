@@ -7,6 +7,7 @@ from third_party.linkedin import scrape_linkedin_profile
 from third_party.x import scrape_user_tweets
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from agents.x_lookup_agent import lookup_x_username as x_lookup_agent
+from output_parsers import summary_parser
 
 
 def ice_breaker_with(name:str):
@@ -23,14 +24,16 @@ def ice_breaker_with(name:str):
         Using BOTH information from LinkedIn and X (Twitter), I want you to create:
         1) A short summary. (Max 3 sentences).
         2) Give 2 interesting facts about the person and his/her posts.
+        \n{format_instructions}
         """
 
     summary_prompt_template = PromptTemplate(
         input_variables=["information", "x_posts"],
-        template=summary_template
+        template=summary_template,
+        partial_variables={"format_instructions":summary_parser.get_format_instructions()}
     )
 
-    chain = summary_prompt_template | llm | StrOutputParser()
+    chain = summary_prompt_template | llm | summary_parser
 
     res = chain.invoke(input={"information": linkedin_data, "x_posts": x_posts})
 
